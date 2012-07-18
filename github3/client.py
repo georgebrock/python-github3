@@ -62,7 +62,14 @@ class Repo(object):
     resp = self.client.get(url, **kw)
     return PaginatedResourceList.FromResponse(self.client, resp)
 
-  def comments(self, issue, **kw):
+  def comments(self, **kw):
+    """Return a PaginatedResourceList of comments for this repo."""
+    url = '%s/%s/%s/comments' % (
+        self.BASE_URL, self.user, self.repo)
+    resp = self.client.get(url, **kw)
+    return PaginatedResourceList.FromResponse(self.client, resp)
+
+  def issue_comments(self, issue, **kw):
     """Return a PaginatedResourceList of comments for an issue."""
     url = '%s/%s/%s/issues/%s/comments' % (
         self.BASE_URL, self.user, self.repo, issue)
